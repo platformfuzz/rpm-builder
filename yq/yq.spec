@@ -6,8 +6,6 @@
 %global github_tag v%{pgkver}
 
 %define debug_package %{nil}
-# allow download of source as defined in Source0
-%undefine _disable_source_fetch
 
 Name:       %{pkgname}
 Version:    %{pkgver}
@@ -18,7 +16,7 @@ URL:        https://github.com/%{github_owner}/%{github_repo}
 Source0:    https://github.com/%{github_owner}/%{github_repo}/archive/refs/tags/v%{pkgver}.tar.gz
 
 # Build dependencies (if any)
-BuildRequires: golang
+BuildRequires: golang >= 1.20
 
 %description
 %{pkgname} is a lightweight and portable command-line YAML processor and query tool. It allows you to easily manipulate and query YAML files using a simple and intuitive syntax.
