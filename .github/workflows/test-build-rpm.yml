@@ -1,0 +1,44 @@
+name: Test Build RPM
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Select package to build'
+        required: true
+        default: 'yq'
+        type: choice
+        options:
+          - yq
+permissions:
+  contents: write
+jobs:
+  build-release-rpm:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/platformfuzz/image-builder/stream8-rpmbuild:latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+      - name: Prepare environment
+        run: |
+          mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+          cp ./${{ github.event.inputs.package }}/*.spec ./rpmbuild/SPECS/
+      - name: Download required sources
+        run: |
+          cd ./rpmbuild/SOURCES/
+          spectool --get-files --all ../SPECS/*.spec
+      - name: Install RPM dependencies
+        run: |
+          cd ./rpmbuild/
+          yum-builddep --assumeyes ./SPECS/*.spec
+      - name: Build RPM package
+        run: |
+          cd ./rpmbuild/
+          rpmbuild --define "_topdir `pwd`" --ba ./SPECS/*.spec
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: "${{ github.event.inputs.package }}"
+          path: '**/*.rpm'
+          retention-days: 1
