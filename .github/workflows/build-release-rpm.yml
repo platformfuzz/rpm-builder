@@ -8,6 +8,7 @@ on:
         default: 'yq'
         type: choice
         options:
+          - jq
           - yq
       version:
         description: 'Package release version'
