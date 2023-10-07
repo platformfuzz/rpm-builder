@@ -1,1 +1,4 @@
 # rpm-builder
+
+- jq
+- yq
