@@ -58,9 +58,9 @@ BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
 %endif
 
-%if 0%{?rhel}
-Requires: epel-release
-%endif
+# %if 0%{?rhel}
+# Requires: epel-release
+# %endif
 
 Requires:   dkms
 Requires:   %{kernel_pkg_name} >= 4.15, %{kernel_pkg_name}-devel >= 4.15
