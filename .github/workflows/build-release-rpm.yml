@@ -8,6 +8,7 @@ on:
         default: 'yq'
         type: choice
         options:
+          - displaylink
           - jq
           - yq
       version:
