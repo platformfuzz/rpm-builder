@@ -3,4 +3,5 @@
 - displaylink
 - evdi
 - jq
+- slinktool
 - yq
