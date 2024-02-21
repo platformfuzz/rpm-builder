@@ -9,7 +9,9 @@ on:
         type: choice
         options:
           - displaylink
+          - evdi
           - jq
+          - slinktool
           - yq
 permissions:
   contents: write

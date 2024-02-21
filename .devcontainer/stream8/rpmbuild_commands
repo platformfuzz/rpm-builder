@@ -1,0 +1,14 @@
+# cleanup, create setup tree
+rm -rf /root/rpmbuild
+rpmdev-setuptree
+
+# download required files
+cd rpmbuild/SOURCES/
+spectool --get-files --all ../SPECS/*.spec
+
+# install prerequisites
+cd ..
+yum-builddep --assumeyes ./SPECS/*.spec
+
+# build rpm
+rpmbuild --ba SPECS/*.spec
