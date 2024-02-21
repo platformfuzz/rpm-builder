@@ -11,6 +11,7 @@ on:
           - displaylink
           - evdi
           - jq
+          - slarchive
           - slinktool
           - yq
       version:
