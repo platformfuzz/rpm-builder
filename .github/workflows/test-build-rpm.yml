@@ -11,6 +11,7 @@ on:
           - displaylink
           - evdi
           - jq
+          - ringserver
           - slarchive
           - slink2dali
           - slinktool
