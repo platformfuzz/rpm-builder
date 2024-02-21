@@ -9,7 +9,7 @@ Name:          %{pkgname}
 Version:       %{pkgver}
 Release:       1%{?dist}
 Summary:       SEEDLink data archiving tool
-License:       GPL-3.0
+License:       Apache License, Version 2.0
 
 URL:           https://github.com/EarthScope/slarchive
 

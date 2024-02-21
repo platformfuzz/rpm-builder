@@ -12,6 +12,7 @@ on:
           - evdi
           - jq
           - slarchive
+          - slink2dali
           - slinktool
           - yq
 permissions:
