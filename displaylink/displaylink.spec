@@ -1,6 +1,7 @@
 %{!?_daemon_version:%global _daemon_version 5.8.0-63.33}
-%{!?_version:%global _version 1.14.1}
-%{!?_release:%global _release 2}
+%{!?_libevdi_version:%global _libevdi_version 1.14.1}
+%{!?_version:%global _version 1.14.3}
+%{!?_release:%global _release 1}
 
 # Disable RPATH since DisplayLinkManager contains this.
 # Fedora 35 enforces this check and will stop rpmbuild from
@@ -37,6 +38,7 @@ Source6:  https://raw.githubusercontent.com/displaylink-rpm/displaylink-rpm/mast
 Source7:  https://raw.githubusercontent.com/displaylink-rpm/displaylink-rpm/master/displaylink.logrotate
 Source8:  https://raw.githubusercontent.com/displaylink-rpm/displaylink-rpm/master/displaylink-udev-extractor.sh
 Source9:  https://raw.githubusercontent.com/displaylink-rpm/displaylink-rpm/master/evdi.conf
+Source10: https://raw.githubusercontent.com/DisplayLink/evdi/main/module/dkms_install.sh
 
 BuildRequires:  gcc-c++
 BuildRequires:  libdrm-devel
@@ -132,7 +134,8 @@ popd
 echo "NO_WEAK_MODULES=yes" >> %{buildroot}%{_prefix}/src/evdi-%{version}/dkms.conf
 
 # Library
-cp -a evdi-%{version}/library/libevdi.so.%{version} %{buildroot}%{_libexecdir}/%{name}/
+
+cp -a evdi-%{version}/library/libevdi.so.%{_libevdi_version} %{buildroot}%{_libexecdir}/%{name}/
 ln -sf %{_libexecdir}/%{name}/libevdi.so.%{version} %{buildroot}%{_libexecdir}/%{name}/libevdi.so
 
 # Copy over binaries in the package
@@ -166,6 +169,9 @@ cp -a %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # evdi module options
 cp -a %{SOURCE9} %{buildroot}%{_sysconfdir}/modprobe.d/
+
+# dkms_install.sh
+cp -a %{SOURCE10} %{buildroot}%{_prefix}/src/evdi-%{version}/
 
 # pm-util
 bash %{SOURCE3} service-installer.sh > %{buildroot}%{_prefix}/lib/systemd/system-sleep/displaylink.sh
@@ -203,6 +209,7 @@ done
 %{_prefix}/src/evdi-%{version}/LICENSE
 %{_prefix}/src/evdi-%{version}/Makefile
 %{_prefix}/src/evdi-%{version}/dkms.conf
+%{_prefix}/src/evdi-%{version}/dkms_install.sh
 %{_prefix}/src/evdi-%{version}/evdi_connector.c
 %{_prefix}/src/evdi-%{version}/evdi_cursor.c
 %{_prefix}/src/evdi-%{version}/evdi_cursor.h
@@ -233,7 +240,7 @@ done
 %{_libexecdir}/%{name}/ella-dock-release.spkg
 %{_libexecdir}/%{name}/firefly-monitor-release.spkg
 %{_libexecdir}/%{name}/libevdi.so
-%{_libexecdir}/%{name}/libevdi.so.%{version}
+%{_libexecdir}/%{name}/libevdi.so.%{_libevdi_version}
 %{_libexecdir}/%{name}/navarro-dock-release.spkg
 %{_libexecdir}/%{name}/ridge-dock-release.spkg
 %{_libexecdir}/%{name}/udev.sh
@@ -254,6 +261,9 @@ done
 %systemd_postun_with_restart displaylink-driver.service
 
 %changelog
+* Wed Apr 10 2024 John Ajera <jdcajera@gmail.com> - 1.14.3-1
+- Bump version
+
 * Wed Dec 13 2023 John Ajera <jdcajera@gmail.com> 1.14.1-2
 - Fixes to run in Fedora 39
 - Source files does not need to be downloaded separately
