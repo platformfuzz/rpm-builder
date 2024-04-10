@@ -78,8 +78,8 @@ echo "AUTOINSTALL=\"YES\"" >> %{buildroot}/usr/src/%{name}-%{version}/dkms.conf
 %{_libexecdir}/displaylink-%{name}/libevdi.so.%{version}
 
 %changelog
+* Tue Apr 10 2024 John Ajera <jdcajera@gmail.com> - 1.14.3-1
+- Bump version
 * Tue Dec 19 2023 John Ajera <jdcajera@gmail.com> - 1.14.1-1
 - Initial package release
 - modified to work with fedora39
-* Tue Apr 10 2024 John Ajera <jdcajera@gmail.com> - 1.14.3-1
-- Bump version
