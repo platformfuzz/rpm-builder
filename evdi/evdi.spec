@@ -1,5 +1,5 @@
 Name:           evdi
-Version:        1.14.1
+Version:        1.14.3
 Release:        1%{?dist}
 Summary:        A kernel module for DisplayLink devices
 
@@ -13,6 +13,8 @@ BuildRequires:  libdrm-devel
 
 %description
 The evdi kernel module for DisplayLink devices.
+
+%global debug_package %{nil}
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -45,6 +47,7 @@ echo "AUTOINSTALL=\"YES\"" >> %{buildroot}/usr/src/%{name}-%{version}/dkms.conf
 %{_prefix}/src/evdi-%{version}/LICENSE
 %{_prefix}/src/evdi-%{version}/Makefile
 %{_prefix}/src/evdi-%{version}/dkms.conf
+%{_prefix}/src/evdi-%{version}/dkms_install.sh
 %{_prefix}/src/evdi-%{version}/evdi_connector.c
 %{_prefix}/src/evdi-%{version}/evdi_cursor.c
 %{_prefix}/src/evdi-%{version}/evdi_cursor.h
@@ -78,3 +81,5 @@ echo "AUTOINSTALL=\"YES\"" >> %{buildroot}/usr/src/%{name}-%{version}/dkms.conf
 * Tue Dec 19 2023 John Ajera <jdcajera@gmail.com> - 1.14.1-1
 - Initial package release
 - modified to work with fedora39
+* Tue Apr 10 2024 John Ajera <jdcajera@gmail.com> - 1.14.3-1
+- Bump version
